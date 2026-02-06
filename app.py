@@ -30,174 +30,159 @@ st.set_page_config(
 # ================================
 st.markdown("""
 <style>
-    /* Main background - Professional gradient */
+    /* Import Google Font */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+    /* Global settings */
+    html, body, [class*="css"] {
+        font-family: 'Inter', sans-serif;
+    }
+
+    /* Main background */
     .stApp {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
     }
     
     /* Content padding */
     .main .block-container {
         padding-top: 2rem;
-        padding-bottom: 2rem;
-        max-width: 1400px;
+        padding-bottom: 3rem;
+        max-width: 1200px;
     }
     
-    /* Metric cards - Glass morphism effect */
+    /* Headings */
+    h1, h2, h3 {
+        color: #1e293b !important;
+        font-weight: 700 !important;
+    }
+    
+    h1 {
+        font-size: 2.2rem !important;
+        padding-bottom: 0.5rem;
+    }
+    
+    /* Metric cards */
     div[data-testid="metric-container"] {
-        background: rgba(255, 255, 255, 0.15);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        padding: 20px;
-        border-radius: 15px;
-        color: white;
-        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-        transition: transform 0.3s ease;
-    }
-    
-    div[data-testid="metric-container"]:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.5);
+        background: white;
+        border: 1px solid #e2e8f0;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     }
     
     div[data-testid="metric-container"] label {
-        color: rgba(255, 255, 255, 0.9) !important;
-        font-weight: 600;
-        font-size: 14px;
+        color: #64748b !important;
+        font-size: 0.875rem !important;
     }
     
     div[data-testid="metric-container"] [data-testid="stMetricValue"] {
-        color: white;
-        font-size: 32px;
-        font-weight: bold;
+        color: #0f172a !important;
+        font-size: 1.5rem !important;
     }
     
     /* Sidebar styling */
     section[data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #1e3c72 0%, #2a5298 100%);
+        background-color: #1e293b;
     }
     
     section[data-testid="stSidebar"] * {
-        color: white !important;
+        color: #f1f5f9;
     }
     
-    /* Headers with glow effect */
-    h1 {
-        color: white !important;
-        font-weight: 800;
-        text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-        letter-spacing: 1px;
+    section[data-testid="stSidebar"] .stMarkdown h3 {
+        color: #f8fafc !important;
+        border-bottom: 1px solid #334155;
+        padding-bottom: 10px;
     }
     
-    h2, h3 {
-        color: white !important;
-        font-weight: 700;
+    /* Sidebar Input Fields */
+    section[data-testid="stSidebar"] .stSelectbox > div > div {
+        background-color: white !important;
+        color: #1e293b !important;
+        border: 1px solid #cbd5e1;
     }
     
-    /* Professional buttons */
-    .stButton > button {
-        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        color: white;
-        border: none;
-        border-radius: 12px;
-        padding: 14px 35px;
-        font-weight: bold;
-        font-size: 16px;
-        box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
-        transition: all 0.3s ease;
-        width: 100%;
+    section[data-testid="stSidebar"] .stSelectbox div[data-baseweb="select"] span {
+        color: #1e293b !important;
     }
     
-    .stButton > button:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 25px rgba(245, 87, 108, 0.6);
+    section[data-testid="stSidebar"] .stSelectbox div[data-baseweb="select"] div {
+        color: #1e293b !important;
+    }
+
+    /* Force SVG arrow icon to be dark */
+    section[data-testid="stSidebar"] .stSelectbox svg {
+        fill: #1e293b !important;
+        color: #1e293b !important;
     }
     
-    /* Download button special styling */
-    .stDownloadButton > button {
-        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-        color: white;
-        border-radius: 12px;
-        padding: 14px 35px;
-        font-weight: bold;
-        box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
+    /* Fix dropdown menu text color */
+    div[data-baseweb="popover"] div, 
+    div[data-baseweb="popover"] li {
+        color: #1e293b !important;
     }
     
-    /* Alert boxes */
-    .stAlert {
-        background: rgba(255, 255, 255, 0.15);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 12px;
-        color: white;
+    /* Add spacing to prevent cramped look */
+    section[data-testid="stSidebar"] .stElementContainer {
+        margin-bottom: 1rem;
     }
-    
-    /* Tables */
-    .dataframe {
-        background: white;
-        border-radius: 12px;
-        overflow: hidden;
-    }
-    
-    /* Form styling */
+
+    /* Main Area Input Fields */
     .stTextInput > div > div > input,
     .stNumberInput > div > div > input,
     .stSelectbox > div > div > div,
     .stSlider > div > div > div {
-        background: rgba(255, 255, 255, 0.1);
+        background: white !important;
+        color: #0f172a !important;
+        border: 1px solid #cbd5e1;
+    }
+    
+    /* Buttons */
+    .stButton > button {
+        background-color: #2563eb;
         color: white;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 8px;
+        border: none;
+        border-radius: 6px;
+        padding: 0.5rem 1rem;
+        font-weight: 600;
+        transition: background-color 0.2s;
     }
     
-    /* Dividers */
-    hr {
-        border-color: rgba(255, 255, 255, 0.2);
-        margin: 2rem 0;
+    .stButton > button:hover {
+        background-color: #1d4ed8;
     }
     
-    /* Tabs */
-    .stTabs [data-baseweb="tab-list"] {
-        gap: 8px;
-    }
-    
-    .stTabs [data-baseweb="tab"] {
-        background-color: rgba(255, 255, 255, 0.1);
-        border-radius: 8px;
-        color: white;
-        padding: 10px 20px;
-    }
-    
-    .stTabs [aria-selected="true"] {
-        background-color: rgba(255, 255, 255, 0.3);
-    }
-    
-    /* Progress bar */
-    .stProgress > div > div > div > div {
-        background: linear-gradient(90deg, #00ff00 0%, #ffa500 50%, #ff0000 100%);
-    }
-    
-    /* Info boxes - custom colors */
+    /* Info Boxes */
     .info-box {
-        padding: 20px;
-        border-radius: 12px;
-        margin: 10px 0;
-        backdrop-filter: blur(10px);
-    }
-    
-    .info-box-warning {
-        background: rgba(255, 165, 0, 0.2);
-        border-left: 4px solid #FFA500;
-    }
-    
-    .info-box-danger {
-        background: rgba(255, 0, 0, 0.2);
-        border-left: 4px solid #FF0000;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 1rem;
     }
     
     .info-box-success {
-        background: rgba(0, 255, 0, 0.2);
-        border-left: 4px solid #00FF00;
+        background-color: #f0fdf4;
+        border-left: 4px solid #22c55e;
+        color: #15803d;
     }
+    
+    .info-box-warning {
+        background-color: #fffbeb;
+        border-left: 4px solid #f59e0b;
+        color: #b45309;
+    }
+    
+    .info-box-danger {
+        background-color: #fef2f2;
+        border-left: 4px solid #ef4444;
+        color: #b91c1c;
+    }
+    
+    /* Dataframe */
+    .dataframe {
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+    }
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -210,11 +195,11 @@ def load_all_models():
     """Load all trained ML models"""
     try:
         models = {
-            'Random Forest': pickle.load(open('random_forest.pkl', 'rb')),
-            'Logistic Regression': pickle.load(open('logistic_regression.pkl', 'rb')),
-            'Decision Tree': pickle.load(open('decision_tree.pkl', 'rb')),
-            'KNN': pickle.load(open('knn.pkl', 'rb')),
-            'Isolation Forest': pickle.load(open('isolation_forest.pkl', 'rb'))
+            'Random Forest': pickle.load(open('models/random_forest.pkl', 'rb')),
+            'Logistic Regression': pickle.load(open('models/logistic_regression.pkl', 'rb')),
+            'Decision Tree': pickle.load(open('models/decision_tree.pkl', 'rb')),
+            'KNN': pickle.load(open('models/knn.pkl', 'rb')),
+            'Isolation Forest': pickle.load(open('models/isolation_forest.pkl', 'rb'))
         }
         return models
     except Exception as e:
@@ -225,7 +210,7 @@ def load_all_models():
 def load_feature_columns():
     """Load the exact feature columns used during training"""
     try:
-        return pickle.load(open('model_columns.pkl', 'rb'))
+        return pickle.load(open('models/model_columns.pkl', 'rb'))
     except Exception as e:
         st.warning(f"⚠️ Could not load feature columns: {str(e)}")
         return None
@@ -234,7 +219,7 @@ def load_feature_columns():
 def load_preprocessor():
     """Load the data preprocessor if available"""
     try:
-        return pickle.load(open('preprocessor.pkl', 'rb'))
+        return pickle.load(open('models/preprocessor.pkl', 'rb'))
     except:
         return None
 
@@ -242,7 +227,7 @@ def load_preprocessor():
 def load_training_dataset():
     """Load training dataset for hospital names and reference data"""
     try:
-        df = pd.read_csv('training_data.csv')
+        df = pd.read_csv('data/training_data.csv')
         return df
     except Exception as e:
         st.warning(f"⚠️ Training data not found: {str(e)}")
@@ -252,7 +237,7 @@ def load_training_dataset():
 def load_model_metrics():
     """Load pre-computed model accuracies"""
     try:
-        return pickle.load(open('model_metrics.pkl', 'rb'))
+        return pickle.load(open('models/model_metrics.pkl', 'rb'))
     except:
         # Default accuracies if not available
         return {
@@ -553,7 +538,7 @@ def main():
         <h1 style='font-size: 56px; margin-bottom: 10px;'>
             🏥 AI-Powered Health Insurance Fraud Detection System
         </h1>
-        <p style='font-size: 20px; color: rgba(255, 255, 255, 0.9); font-weight: 500;'>
+        <p style='font-size: 20px; color: #475569; font-weight: 500;'>
             Advanced Machine Learning for Real-Time Fraud Detection
         </p>
     </div>
@@ -565,151 +550,184 @@ def main():
         return
     
     # ================================
-    # MODEL SELECTION BAR
+    # SIDEBAR - MODEL SELECTION & STATS
     # ================================
-    st.markdown("---")
-    col1, col2, col3 = st.columns([1, 2, 1])
-    with col2:
-        st.markdown("### 🎯 Select Model for Detailed Analysis")
+    with st.sidebar:
+        st.markdown("### 🎯 Select Model")
         selected_model = st.selectbox(
             "",
             options=['Random Forest', 'Logistic Regression', 'Decision Tree', 'KNN', 'Isolation Forest'],
             index=0,
+            key="model_select_sidebar",
             help="Choose which model's detailed prediction you want to see"
         )
+        
+        st.markdown("---")
+        st.markdown("### 📊 System Statistics")
+        
+        # Vertical stacking for sidebar
+        if training_data is not None:
+             fraud_count = training_data['is_fraudulent'].sum() if 'is_fraudulent' in training_data.columns else 0
+             fraud_rate = (fraud_count / len(training_data)) * 100 if len(training_data) > 0 else 0
+             
+             st.metric("Total Claims", f"{len(training_data):,}")
+             st.metric("Fraud Detected", f"{int(fraud_count):,}")
+             st.metric("Fraud Rate", f"{fraud_rate:.2f}%")
+
+        st.markdown("---")
+        st.markdown("### 🤖 Models Info")
+        
+        model_info = [
+            ("🌳", "Random Forest", "94%"),
+            ("📊", "Logistic Regression", "88%"),
+            ("🌲", "Decision Tree", "86%"),
+            ("🎯", "KNN", "85%"),
+            ("🔍", "Isolation Forest", "82%")
+        ]
+        
+        for emoji, name, acc in model_info:
+            st.markdown(f"""
+            <div style='background: rgba(255,255,255,0.05); padding: 10px; border-radius: 8px; margin-bottom: 8px;'>
+                <span style='font-size: 20px;'>{emoji}</span> 
+                <span style='font-weight: bold; color: white;'>{name}</span>
+                <span style='float: right; color: #4ade80;'>{acc}</span>
+            </div>
+            """, unsafe_allow_html=True)
     
     # ================================
     # SIDEBAR - INPUT FORM
     # ================================
-    with st.sidebar:
-        st.markdown("# 📋 Claim Information")
+    # ================================
+    # MAIN - INPUT FORM
+    # ================================
+    st.markdown("# 📋 Claim Information")
+    st.markdown("---")
+    
+    with st.form("fraud_detection_form"):
+        # Patient Information
+        st.markdown("### 👤 Patient Information")
+        patient_name = st.text_input("Patient Name", value="John Doe", help="Enter patient's full name")
+        patient_address = st.text_input("Address", value="123 Main St, City, State", help="Patient's address")
+        patient_age = st.slider("Age", min_value=0, max_value=120, value=45, help="Patient's age in years")
+        patient_gender = st.selectbox("Gender", options=["Male", "Female", "Other"], help="Patient's gender")
+        
         st.markdown("---")
         
-        with st.form("fraud_detection_form"):
-            # Patient Information
-            st.markdown("### 👤 Patient Information")
-            patient_name = st.text_input("Patient Name", value="John Doe", help="Enter patient's full name")
-            patient_address = st.text_input("Address", value="123 Main St, City, State", help="Patient's address")
-            patient_age = st.slider("Age", min_value=0, max_value=120, value=45, help="Patient's age in years")
-            patient_gender = st.selectbox("Gender", options=["Male", "Female", "Other"], help="Patient's gender")
-            
-            st.markdown("---")
-            
-            # Hospital Information
-            st.markdown("### 🏥 Hospital Information")
-            
-            # Get hospital list
-            hospital_list = get_hospital_list()
-            
-            hospital_selection = st.radio(
-                "Hospital Selection Method",
-                options=["Select from list", "Enter custom"],
-                help="Choose hospital from database or enter custom"
+        # Hospital Information
+        st.markdown("### 🏥 Hospital Information")
+        
+        # Get hospital list
+        hospital_list = get_hospital_list()
+        
+        hospital_selection = st.radio(
+            "Hospital Selection Method",
+            options=["Select from list", "Enter custom"],
+            help="Choose hospital from database or enter custom"
+        )
+        
+        if hospital_selection == "Select from list":
+            hospital_id = st.selectbox(
+                "Hospital ID",
+                options=hospital_list,
+                help="Select hospital from training database"
             )
-            
-            if hospital_selection == "Select from list":
-                hospital_id = st.selectbox(
-                    "Hospital ID",
-                    options=hospital_list,
-                    help="Select hospital from training database"
-                )
-                is_new_hospital = False
-            else:
-                hospital_id = st.number_input(
-                    "Hospital ID",
-                    min_value=1,
-                    max_value=9999,
-                    value=1000,
-                    help="Enter custom hospital ID (will be flagged for manual review)"
-                )
-                is_new_hospital = hospital_id not in hospital_list
-                if is_new_hospital:
-                    st.warning("⚠️ This hospital is not in our database. Results will be flagged for manual review.")
-            
-            provider_type = st.selectbox(
-                "Provider Type",
-                options=["Hospital", "Clinic", "Specialist Office", "Laboratory", "Emergency"],
-                help="Type of healthcare provider"
-            )
-            
-            st.markdown("---")
-            
-            # Claim Details
-            st.markdown("### 💰 Claim Details")
-            
-            claim_amount = st.number_input(
-                "Claim Amount ($)",
-                min_value=0.0,
-                max_value=10000000.0,
-                value=5000.0,
-                step=100.0,
-                help="Total amount claimed"
-            )
-            
-            length_of_stay = st.number_input(
-                "Days Stayed in Hospital",
-                min_value=0,
-                max_value=365,
-                value=3,
-                help="Number of days patient stayed"
-            )
-            
-            num_prev_claims = st.number_input(
-                "Number of Previous Claims",
-                min_value=0,
-                max_value=100,
-                value=2,
-                help="Patient's previous claim count"
-            )
-            
-            diagnosis = st.text_input(
-                "Disease / Diagnosis",
-                value="A09",
-                help="ICD-10 diagnosis code or disease name"
-            )
-            
-            icu_required = st.selectbox(
-                "ICU Required?",
-                options=["No", "Yes"],
-                help="Was ICU stay required?"
-            )
-            
-            surgery_done = st.selectbox(
-                "Surgery Done?",
-                options=["No", "Yes"],
-                help="Was surgery performed?"
-            )
-            
-            num_procedures = st.number_input(
-                "Number of Procedures",
+            is_new_hospital = False
+        else:
+            hospital_id = st.number_input(
+                "Hospital ID",
                 min_value=1,
-                max_value=20,
-                value=2,
-                help="Total procedures performed"
+                max_value=9999,
+                value=1000,
+                help="Enter custom hospital ID (will be flagged for manual review)"
             )
-            
-            distance = st.number_input(
-                "Distance to Hospital (miles)",
-                min_value=0.0,
-                max_value=1000.0,
-                value=15.0,
-                help="Distance between patient and provider"
-            )
-            
-            submitted_late = st.checkbox(
-                "Claim Submitted Late",
-                value=False,
-                help="Was the claim submitted after deadline?"
-            )
-            
-            st.markdown("---")
-            
-            # Submit button
-            submit_button = st.form_submit_button(
-                "🔍 Analyze Claim",
-                use_container_width=True,
-                type="primary"
-            )
+            is_new_hospital = hospital_id not in hospital_list
+            if is_new_hospital:
+                st.warning("⚠️ This hospital is not in our database. Results will be flagged for manual review.")
+        
+        provider_type = st.selectbox(
+            "Provider Type",
+            options=["Hospital", "Clinic", "Specialist Office", "Laboratory", "Emergency"],
+            help="Type of healthcare provider"
+        )
+        
+        st.markdown("---")
+        
+        # Claim Details
+        st.markdown("### 💰 Claim Details")
+        
+        claim_amount = st.number_input(
+            "Claim Amount ($)",
+            min_value=0.0,
+            max_value=10000000.0,
+            value=5000.0,
+            step=100.0,
+            help="Total amount claimed"
+        )
+        
+        length_of_stay = st.number_input(
+            "Days Stayed in Hospital",
+            min_value=0,
+            max_value=365,
+            value=3,
+            help="Number of days patient stayed"
+        )
+        
+        num_prev_claims = st.number_input(
+            "Number of Previous Claims",
+            min_value=0,
+            max_value=100,
+            value=2,
+            help="Patient's previous claim count"
+        )
+        
+        diagnosis = st.text_input(
+            "Disease / Diagnosis",
+            value="A09",
+            help="ICD-10 diagnosis code or disease name"
+        )
+        
+        icu_required = st.selectbox(
+            "ICU Required?",
+            options=["No", "Yes"],
+            help="Was ICU stay required?"
+        )
+        
+        surgery_done = st.selectbox(
+            "Surgery Done?",
+            options=["No", "Yes"],
+            help="Was surgery performed?"
+        )
+        
+        num_procedures = st.number_input(
+            "Number of Procedures",
+            min_value=1,
+            max_value=20,
+            value=2,
+            help="Total procedures performed"
+        )
+        
+        distance = st.number_input(
+            "Distance to Hospital (miles)",
+            min_value=0.0,
+            max_value=1000.0,
+            value=15.0,
+            help="Distance between patient and provider"
+        )
+        
+        submitted_late = st.checkbox(
+            "Claim Submitted Late",
+            value=False,
+            help="Was the claim submitted after deadline?"
+        )
+        
+        st.markdown("---")
+        
+        # Submit button
+        submit_button = st.form_submit_button(
+            "🔍 Analyze Claim",
+            use_container_width=True,
+            type="primary"
+        )
     
     # ================================
     # PROCESS SUBMISSION
@@ -1075,72 +1093,6 @@ Model Accuracy:      {model_metrics.get(selected_model, 0.9):.1%}
                 use_container_width=True
             )
     
-    else:
-        # ================================
-        # WELCOME SCREEN
-        # ================================
-        st.markdown("""
-        <div style='text-align: center; padding: 40px 20px; color: white;'>
-            <h2 style='font-size: 36px; margin-bottom: 20px;'>
-                👈 Enter claim details to begin analysis
-            </h2>
-            <p style='font-size: 20px; margin-top: 20px; line-height: 1.8;'>
-                Our AI system uses <strong>5 advanced machine learning models</strong> to detect<br>
-                potential fraud in health insurance claims with industry-leading accuracy.
-            </p>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        st.markdown("<br><br>", unsafe_allow_html=True)
-        
-        # Model showcase
-        st.markdown("### 🤖 Our AI Models")
-        
-        col1, col2, col3, col4, col5 = st.columns(5)
-        
-        model_info = [
-            ("🌳", "Random Forest", "Ensemble\nLearning", "94% Accuracy"),
-            ("📊", "Logistic\nRegression", "Probabilistic\nAnalysis", "88% Accuracy"),
-            ("🌲", "Decision\nTree", "Rule-Based\nClassification", "86% Accuracy"),
-            ("🎯", "K-Nearest\nNeighbors", "Pattern\nMatching", "85% Accuracy"),
-            ("🔍", "Isolation\nForest", "Anomaly\nDetection", "82% Accuracy")
-        ]
-        
-        for col, (emoji, name, method, acc) in zip([col1, col2, col3, col4, col5], model_info):
-            with col:
-                st.markdown(f"""
-                <div style='text-align: center; padding: 20px; background: rgba(255, 255, 255, 0.1); 
-                            border-radius: 15px; backdrop-filter: blur(10px); height: 200px;
-                            display: flex; flex-direction: column; justify-content: center;'>
-                    <div style='font-size: 48px; margin-bottom: 10px;'>{emoji}</div>
-                    <div style='font-size: 16px; font-weight: bold; margin-bottom: 5px; color: white;'>{name}</div>
-                    <div style='font-size: 13px; color: rgba(255, 255, 255, 0.8); margin-bottom: 5px;'>{method}</div>
-                    <div style='font-size: 14px; color: #4ade80; font-weight: bold;'>{acc}</div>
-                </div>
-                """, unsafe_allow_html=True)
-        
-        # Show dataset statistics if available
-        if training_data is not None:
-            st.markdown("---")
-            st.markdown("### 📊 System Statistics")
-            
-            col1, col2, col3, col4 = st.columns(4)
-            
-            with col1:
-                st.metric("Total Training Claims", f"{len(training_data):,}")
-            
-            with col2:
-                fraud_count = training_data['is_fraudulent'].sum() if 'is_fraudulent' in training_data.columns else 0
-                st.metric("Fraudulent Cases Detected", f"{int(fraud_count):,}")
-            
-            with col3:
-                fraud_rate = (fraud_count / len(training_data)) * 100 if len(training_data) > 0 else 0
-                st.metric("Historical Fraud Rate", f"{fraud_rate:.2f}%")
-            
-            with col4:
-                hospitals = len(training_data['hospital_id'].unique()) if 'hospital_id' in training_data.columns else 0
-                st.metric("Hospitals in Database", f"{hospitals:,}")
-
 # ================================
 # RUN APPLICATION
 # ================================
